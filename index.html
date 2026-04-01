@@ -4,27 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>업무 스케줄러</title>
-
-<!-- PWA 메타 -->
 <meta name="theme-color" content="#161920">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="스케줄러">
 <link rel="manifest" href="manifest.json">
-
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-
 <style>
-:root {
-  --bg:#0d0f14; --surface:#161920; --surface2:#1e2230; --surface3:#252a3a;
-  --border:#2a2f40; --accent:#5b8dee; --accent2:#e85d75; --accent3:#f0a500;
-  --accent4:#3ecf8e; --text:#e8eaf0; --text2:#8891aa; --text3:#4e5570;
-  --task-h:26px; --radius:12px;
-}
+:root{--bg:#0d0f14;--surface:#161920;--surface2:#1e2230;--surface3:#252a3a;--border:#2a2f40;--accent:#5b8dee;--accent2:#e85d75;--accent3:#f0a500;--accent4:#3ecf8e;--text:#e8eaf0;--text2:#8891aa;--text3:#4e5570;--task-h:26px;--radius:12px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Pretendard',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 
-/* ═══ HEADER ═══ */
+/* HEADER */
 header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:100;gap:10px;flex-wrap:wrap;}
 .header-left{display:flex;align-items:center;gap:12px;flex-shrink:0;}
 .logo{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--accent);letter-spacing:.5px;white-space:nowrap;}
@@ -43,18 +34,19 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .urgent-count{position:absolute;top:-6px;right:-6px;background:#fff;color:var(--accent2);font-size:.65rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;border:2px solid #e85d75;}
 .urgent-count.show{display:flex;}
 
-/* ═══ NOTIF BANNER ═══ */
-.notif-banner{background:rgba(91,141,238,.12);border-bottom:1px solid rgba(91,141,238,.2);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.78rem;}
-.notif-banner button{padding:6px 14px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Pretendard',sans-serif;font-size:.75rem;font-weight:700;white-space:nowrap;}
+/* NOTIF BANNER */
+.notif-banner{padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.78rem;}
 .notif-banner.hidden{display:none;}
-.notif-denied{background:rgba(232,93,117,.1);border-bottom:1px solid rgba(232,93,117,.18);}
+.notif-need{background:rgba(91,141,238,.1);border-bottom:1px solid rgba(91,141,238,.18);}
+.notif-denied{background:rgba(232,93,117,.08);border-bottom:1px solid rgba(232,93,117,.15);}
+.notif-banner button{padding:6px 14px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Pretendard',sans-serif;font-size:.75rem;font-weight:700;white-space:nowrap;}
 
-/* ═══ LEGEND ═══ */
+/* LEGEND */
 .legend{display:flex;gap:14px;flex-wrap:wrap;padding:8px 20px;max-width:1400px;margin:0 auto;}
 .legend-item{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--text2);}
 .legend-dot{width:9px;height:9px;border-radius:3px;}
 
-/* ═══ CALENDAR ═══ */
+/* CALENDAR */
 .calendar-wrap{padding:8px 16px 24px;max-width:1400px;margin:0 auto;}
 .day-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:5px;}
 .day-label{text-align:center;font-size:.72rem;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;padding:5px 0;}
@@ -70,7 +62,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .sun .day-num{color:var(--accent2) !important;}
 .sat .day-num{color:#6fa0ff !important;}
 
-/* ═══ TASK BARS ═══ */
+/* TASK BARS */
 .task-bar{height:var(--task-h);border-radius:5px;padding:0 6px;font-size:.68rem;font-weight:600;display:flex;align-items:center;gap:3px;overflow:hidden;white-space:nowrap;cursor:pointer;transition:filter .15s,transform .15s;}
 .task-bar:hover{filter:brightness(1.2);transform:translateY(-1px);}
 .task-bar .tb-icon{font-size:.65rem;flex-shrink:0;}
@@ -85,7 +77,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .more-badge{font-size:.63rem;color:var(--text3);padding:1px 4px;cursor:pointer;}
 .more-badge:hover{color:var(--accent);}
 
-/* ═══ DETAIL POPUP ═══ */
+/* DETAIL POPUP */
 .detail-popup{position:fixed;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 17px 13px;width:270px;box-shadow:0 14px 50px rgba(0,0,0,.6);z-index:300;display:none;}
 .detail-popup.show{display:block;}
 .dp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
@@ -103,7 +95,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .da-del{background:rgba(232,93,117,.1);color:var(--accent2);border:1px solid rgba(232,93,117,.25);}
 .da-del:hover{background:rgba(232,93,117,.22);}
 
-/* ═══ MODAL ═══ */
+/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);z-index:400;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .25s;}
 .modal-overlay.open{opacity:1;pointer-events:all;}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:26px 26px 22px;box-shadow:0 28px 70px rgba(0,0,0,.7);transform:translateY(24px) scale(.97);transition:transform .25s;}
@@ -113,28 +105,25 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .modal-close:hover{background:var(--accent2);color:#fff;}
 .form-group{margin-bottom:15px;}
 .form-group label{display:block;font-size:.72rem;font-weight:700;color:var(--text2);margin-bottom:6px;letter-spacing:.05em;text-transform:uppercase;}
-.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 13px;color:var(--text);font-family:'Pretendard',sans-serif;font-size:.86rem;transition:border-color .2s;outline:none;}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
+.form-group input,.form-group textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 13px;color:var(--text);font-family:'Pretendard',sans-serif;font-size:.86rem;transition:border-color .2s;outline:none;}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent);}
 .form-group textarea{resize:vertical;min-height:65px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
 .type-selector{display:flex;gap:7px;}
 .type-btn{flex:1;padding:9px 6px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-family:'Pretendard',sans-serif;font-size:.78rem;font-weight:700;text-align:center;transition:all .2s;}
 .type-btn.active{border-color:var(--accent);background:rgba(91,141,238,.14);color:var(--accent);}
 .type-btn[data-t="meeting"].active{border-color:var(--accent3);background:rgba(240,165,0,.1);color:var(--accent3);}
-
-/* 유형별 필드 표시/숨기기 */
 .task-only{display:block;}
 .meet-only{display:none;}
 .showing-meeting .task-only{display:none;}
 .showing-meeting .meet-only{display:block;}
-
 .modal-actions{display:flex;gap:9px;margin-top:20px;}
 .btn-cancel{flex:1;padding:12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-family:'Pretendard',sans-serif;font-weight:700;transition:all .2s;}
 .btn-cancel:hover{border-color:var(--accent2);color:var(--accent2);}
 .btn-save{flex:2;padding:12px;border-radius:10px;background:var(--accent);border:none;color:#fff;cursor:pointer;font-family:'Pretendard',sans-serif;font-weight:800;font-size:.9rem;box-shadow:0 4px 18px rgba(91,141,238,.35);transition:all .2s;}
 .btn-save:hover{background:#4a7ce0;transform:translateY(-1px);}
 
-/* ═══ ALARM POPUP ═══ */
+/* ALARM POPUP */
 .alarm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.87);backdrop-filter:blur(14px);z-index:600;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
 .alarm-overlay.open{opacity:1;pointer-events:all;}
 .alarm-popup{background:var(--surface);border-radius:24px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 32px 90px rgba(0,0,0,.9);transform:scale(.85) translateY(30px);transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
@@ -170,7 +159,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .alarm-confirm:hover{transform:translateY(-2px);filter:brightness(1.1);}
 .alarm-queue-info{text-align:center;font-size:.71rem;color:var(--text3);margin-top:10px;}
 
-/* ═══ URGENT PANEL ═══ */
+/* URGENT PANEL */
 .urgent-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(5px);z-index:500;opacity:0;pointer-events:none;transition:opacity .25s;}
 .urgent-overlay.open{opacity:1;pointer-events:all;}
 .urgent-panel{position:fixed;top:0;right:0;bottom:0;width:340px;max-width:100%;background:var(--surface);border-left:1px solid var(--border);z-index:501;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:-14px 0 55px rgba(0,0,0,.5);}
@@ -194,12 +183,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .uc-d1 .uc-dday{background:rgba(240,165,0,.16);color:var(--accent3);}
 .uc-d2 .uc-dday{background:rgba(255,255,255,.06);color:var(--text2);}
 .uc-start .uc-dday{background:rgba(91,141,238,.16);color:var(--accent);}
-.uc-meta{font-size:.71rem;color:var(--text3);display:flex;gap:8px;flex-wrap:wrap;}
+.uc-meta{font-size:.71rem;color:var(--text3);}
 .up-empty{text-align:center;padding:48px 20px;color:var(--text3);}
 .up-empty .ue-icon{font-size:2.8rem;margin-bottom:12px;}
 .up-empty p{font-size:.82rem;line-height:1.6;}
 
-/* ═══ TOAST ═══ */
+/* TOAST */
 #toastContainer{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:550;}
 .toast{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:11px;padding:12px 16px;box-shadow:0 8px 28px rgba(0,0,0,.4);min-width:230px;max-width:290px;animation:tIn .3s ease;display:flex;gap:10px;align-items:flex-start;}
 .toast-icon{font-size:1.1rem;flex-shrink:0;}
@@ -207,13 +196,13 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .toast-title{font-weight:700;font-size:.82rem;margin-bottom:2px;}
 .toast-msg{font-size:.73rem;color:var(--text2);}
 @keyframes tIn{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:translateX(0)}}
-@keyframes tOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(22px)}}
+@keyframes tOut{from{opacity:1}to{opacity:0;transform:translateX(22px)}}
 
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
 
-/* ═══ RESPONSIVE ═══ */
+/* RESPONSIVE */
 @media(max-width:768px){
   header{padding:11px 13px;}
   .logo{font-size:1.05rem;}
@@ -238,7 +227,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-left">
     <div class="logo">📋 Scheduler</div>
@@ -250,24 +238,20 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   </div>
   <div class="header-right">
     <button class="hbtn hbtn-ghost today-btn" onclick="goToday()">오늘</button>
-    <button class="hbtn hbtn-urgent" onclick="openUrgent()">
-      🚨 긴급업무
-      <span class="urgent-count" id="urgentCount"></span>
-    </button>
+    <button class="hbtn hbtn-urgent" onclick="openUrgent()">🚨 긴급업무<span class="urgent-count" id="urgentCount"></span></button>
     <button class="hbtn hbtn-add" onclick="openModal()">+ 등록</button>
   </div>
 </header>
 
-<!-- 알림 허용 배너 -->
-<div class="notif-banner hidden" id="notifBanner">
+<!-- 알림 배너 -->
+<div class="notif-banner notif-need hidden" id="notifBanner">
   <span>🔔 백그라운드 알람을 받으려면 알림을 허용해 주세요.</span>
-  <button onclick="requestNotifPermission()">알림 허용</button>
+  <button onclick="requestPerm()">알림 허용</button>
 </div>
 <div class="notif-banner notif-denied hidden" id="notifDenied">
-  <span>⚠️ 알림이 차단되었습니다. 브라우저 설정에서 허용해 주세요. (앱 내 알람은 정상 작동)</span>
+  <span>⚠️ 알림이 차단되어 있습니다. 브라우저 설정에서 허용해 주세요.</span>
 </div>
 
-<!-- LEGEND -->
 <div class="legend">
   <div class="legend-item"><div class="legend-dot" style="background:#5b8dee"></div>업무</div>
   <div class="legend-item"><div class="legend-dot" style="background:#f0a500"></div>회의</div>
@@ -276,7 +260,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   <div class="legend-item"><div class="legend-dot" style="background:#e85d75;border-radius:50%"></div>알람</div>
 </div>
 
-<!-- CALENDAR -->
 <div class="calendar-wrap">
   <div class="day-labels">
     <div class="day-label">일</div><div class="day-label">월</div>
@@ -289,12 +272,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 
 <!-- DETAIL POPUP -->
 <div class="detail-popup" id="detailPopup">
-  <div class="dp-header">
-    <h4 id="dp-title"></h4>
-    <button class="dp-close" onclick="closeDetail()">✕</button>
-  </div>
+  <div class="dp-header"><h4 id="dp-title"></h4><button class="dp-close" onclick="closeDetail()">✕</button></div>
   <div class="detail-row"><span class="dr-label">유형</span><span id="dp-type"></span></div>
-  <div class="detail-row" id="dp-start-row"><span class="dr-label">시작일</span><span id="dp-start"></span></div>
+  <div class="detail-row"><span class="dr-label">시작일</span><span id="dp-start"></span></div>
   <div class="detail-row" id="dp-end-row"><span class="dr-label">마감일</span><span id="dp-end"></span></div>
   <div class="detail-row" id="dp-days-row"><span class="dr-label">소요일</span><span id="dp-days"></span></div>
   <div class="detail-row" id="dp-time-row"><span class="dr-label">시간</span><span id="dp-time"></span></div>
@@ -306,80 +286,44 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   </div>
 </div>
 
-<!-- ADD / EDIT MODAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modalBox">
-    <div class="modal-title">
-      <span id="modalTitleText">업무 등록</span>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-
-    <!-- 유형 선택 -->
+    <div class="modal-title"><span id="modalTitleText">업무 등록</span><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="form-group">
       <label>유형</label>
       <div class="type-selector">
-        <button class="type-btn active" data-t="task"    onclick="setType('task')">📌 업무</button>
-        <button class="type-btn"        data-t="meeting" onclick="setType('meeting')">💬 회의</button>
+        <button class="type-btn active" data-t="task" onclick="setType('task')">📌 업무</button>
+        <button class="type-btn" data-t="meeting" onclick="setType('meeting')">💬 회의</button>
       </div>
     </div>
-
-    <!-- 제목 -->
-    <div class="form-group">
-      <label>업무명 / 회의명</label>
-      <input type="text" id="f-title" placeholder="제목을 입력하세요">
-    </div>
-
-    <!-- 업무 전용: 시작일 + 마감일 -->
+    <div class="form-group"><label>업무명 / 회의명</label><input type="text" id="f-title" placeholder="제목을 입력하세요"></div>
+    <!-- 업무 전용 -->
     <div class="form-row task-only">
-      <div class="form-group">
-        <label>시작일</label>
-        <input type="date" id="f-start">
-      </div>
-      <div class="form-group">
-        <label>마감일</label>
-        <input type="date" id="f-end">
-      </div>
+      <div class="form-group"><label>시작일</label><input type="date" id="f-start"></div>
+      <div class="form-group"><label>마감일</label><input type="date" id="f-end"></div>
     </div>
-
-    <!-- 업무 전용: 소요일수 -->
-    <div class="form-group task-only">
-      <label>소요 일수 (선택)</label>
-      <input type="number" id="f-days" min="1" placeholder="예: 3">
-    </div>
-
-    <!-- 회의 전용: 날짜 -->
-    <div class="form-group meet-only">
-      <label>회의 날짜</label>
-      <input type="date" id="f-meet-date">
-    </div>
-
-    <!-- 회의 전용: 시간 -->
-    <div class="form-group meet-only">
-      <label>회의 시간</label>
-      <input type="time" id="f-time">
-    </div>
-
-    <!-- 메모 (공통) -->
-    <div class="form-group">
-      <label>메모</label>
-      <textarea id="f-memo" placeholder="참고사항 입력"></textarea>
-    </div>
-
+    <div class="form-group task-only"><label>소요 일수 (선택)</label><input type="number" id="f-days" min="1" placeholder="예: 3"></div>
+    <!-- 회의 전용 -->
+    <div class="form-group meet-only"><label>회의 날짜</label><input type="date" id="f-meet-date"></div>
+    <div class="form-group meet-only"><label>회의 시간</label><input type="time" id="f-time"></div>
+    <!-- 공통 -->
+    <div class="form-group"><label>메모</label><textarea id="f-memo" placeholder="참고사항 입력"></textarea></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">취소</button>
-      <button class="btn-save"   onclick="saveTask()">저장하기</button>
+      <button class="btn-save" onclick="saveTask()">저장하기</button>
     </div>
   </div>
 </div>
 
 <!-- ALARM POPUP -->
 <div class="alarm-overlay" id="alarmOverlay">
-  <div class="alarm-popup" id="alarmPopup">
+  <div class="alarm-popup">
     <div class="alarm-header" id="alarmHeader">
       <div class="alarm-icon-wrap" id="alarmIcon"></div>
-      <div class="alarm-kind"  id="alarmKind"></div>
+      <div class="alarm-kind" id="alarmKind"></div>
       <div class="alarm-title" id="alarmTitle"></div>
-      <div class="alarm-sub"   id="alarmSub"></div>
+      <div class="alarm-sub" id="alarmSub"></div>
     </div>
     <div class="alarm-body">
       <div class="alarm-meta" id="alarmMeta"></div>
@@ -392,10 +336,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 <!-- URGENT PANEL -->
 <div class="urgent-overlay" id="urgentOverlay" onclick="closeUrgentOutside(event)">
   <div class="urgent-panel">
-    <div class="up-header">
-      <div class="up-title">🚨 긴급 업무 현황</div>
-      <button class="up-close" onclick="closeUrgent()">✕</button>
-    </div>
+    <div class="up-header"><div class="up-title">🚨 긴급 업무 현황</div><button class="up-close" onclick="closeUrgent()">✕</button></div>
     <div class="up-body" id="urgentBody"></div>
   </div>
 </div>
@@ -403,9 +344,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 <div id="toastContainer"></div>
 
 <script>
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 //  STATE
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 let tasks = JSON.parse(localStorage.getItem('sched_v3') || '[]');
 function saveTasks(){ localStorage.setItem('sched_v3', JSON.stringify(tasks)); }
 
@@ -416,46 +357,45 @@ let curMonth   = today.getMonth();
 let editingId    = null;
 let detailTaskId = null;
 let currentType  = 'task';
+let swReg        = null;
 
-// alarm queue
+// 앱 내 알람 큐
 let alarmQueue  = [];
 let alarmActive = false;
 
-// Service Worker registration
-let swReg = null;
-
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 //  HELPERS
-// ═══════════════════════════════════════════
-function fmtDate(d){
-  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-}
+// ═══════════════════════════════════════
+function fmtDate(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function pad(n){ return String(n).padStart(2,'0'); }
 function addDays(s,n){ const d=new Date(s); d.setDate(d.getDate()+n); return fmtDate(d); }
 function diffDays(a,b){ return Math.round((new Date(b)-new Date(a))/86400000); }
 
-// ═══════════════════════════════════════════
-//  SERVICE WORKER + PUSH NOTIFICATION
-// ═══════════════════════════════════════════
-async function initServiceWorker(){
+// ═══════════════════════════════════════
+//  SERVICE WORKER 초기화
+// ═══════════════════════════════════════
+async function initSW(){
   if(!('serviceWorker' in navigator)) return;
   try {
     swReg = await navigator.serviceWorker.register('./sw.js');
-    console.log('[SW] 등록 완료');
+    console.log('[SW] 등록됨');
 
-    // 메시지 수신 (SW → 앱)
+    // SW → 앱 메시지 (알람 확인 등)
     navigator.serviceWorker.addEventListener('message', e => {
-      if(e.data && e.data.type === 'ALARM_FIRE'){
-        pushAlarm(e.data.alarm);
+      if(e.data.type === 'ALARM_CONFIRMED'){
+        // 백그라운드에서 확인 눌렀을 때 앱 내 큐도 정리
+        alarmQueue = alarmQueue.filter(a => a.id !== e.data.alarmId);
       }
     });
 
-    checkNotifPermission();
+    checkNotifStatus();
   } catch(e){
     console.warn('[SW] 등록 실패:', e);
+    checkNotifStatus();
   }
 }
 
-function checkNotifPermission(){
+function checkNotifStatus(){
   if(!('Notification' in window)) return;
   if(Notification.permission === 'default'){
     document.getElementById('notifBanner').classList.remove('hidden');
@@ -464,105 +404,266 @@ function checkNotifPermission(){
   }
 }
 
-async function requestNotifPermission(){
-  if(!('Notification' in window)) return;
-  const result = await Notification.requestPermission();
+async function requestPerm(){
+  const r = await Notification.requestPermission();
   document.getElementById('notifBanner').classList.add('hidden');
-  if(result === 'denied'){
+  if(r === 'denied'){
     document.getElementById('notifDenied').classList.remove('hidden');
-  } else if(result === 'granted'){
+  } else if(r === 'granted'){
     showToast('알림 허용됨','백그라운드 알람이 활성화되었습니다.','🔔');
+    syncAlarmsToSW(); // 즉시 동기화
   }
 }
 
-// 브라우저 네이티브 알림 발송
-function sendNativeNotif(alarm){
-  if(!('Notification' in window) || Notification.permission !== 'granted') return;
+// ═══════════════════════════════════════
+//  SW에 알람 목록 동기화 (핵심!)
+//  앱이 열릴 때마다, 업무 등록/수정/삭제마다 호출
+// ═══════════════════════════════════════
+function buildAlarmList(){
+  const now  = Date.now();
+  const list = [];
 
-  // SW가 있으면 SW를 통해 발송 (백그라운드 지원)
-  if(swReg && swReg.showNotification){
-    swReg.showNotification(alarm.kind + ' — ' + alarm.taskTitle, {
-      body: alarm.sub || '',
-      icon: './icon-192.png',
-      badge: './icon-72.png',
-      tag: 'alarm-' + (alarm.taskId || Date.now()),
-      renotify: true,
-      requireInteraction: true,
-      vibrate: [200,100,200,100,200],
-      data: { alarm }
-    });
+  tasks.filter(t => !t.done).forEach(t => {
+    if(t.type === 'meeting' && t.time && t.start){
+      const meetMs  = new Date(t.start+'T'+t.time).getTime();
+      const warn2h  = meetMs - 2*3600000;
+      if(warn2h > now) list.push({
+        id: t.id+'-meet2h', taskId: t.id, fireAt: warn2h,
+        type:'type-meet2h', taskTitle:t.title,
+        sub:'오늘 '+t.time+' 에 회의가 있습니다',
+        meta:[['날짜',t.start],['시간',t.time]]
+      });
+      if(meetMs > now) list.push({
+        id: t.id+'-meet0', taskId: t.id, fireAt: meetMs,
+        type:'type-meet0', taskTitle:t.title,
+        sub:'지금 회의가 시작됩니다',
+        meta:[['날짜',t.start],['시간',t.time]]
+      });
+    } else if(t.type !== 'meeting'){
+      const startMs = new Date(t.start+'T09:00:00').getTime();
+      if(startMs > now) list.push({
+        id: t.id+'-start', taskId: t.id, fireAt: startMs,
+        type:'type-start', taskTitle:t.title,
+        sub:'오늘 시작하는 업무입니다',
+        meta:[['시작일',t.start],['마감일',t.end||t.start]]
+      });
+      if(t.end){
+        const warnMs = new Date(addDays(t.end,-2)+'T09:00:00').getTime();
+        if(warnMs > now) list.push({
+          id: t.id+'-warn', taskId: t.id, fireAt: warnMs,
+          type:'type-warn', taskTitle:t.title,
+          sub:'마감일('+t.end+')까지 2일 남았습니다',
+          meta:[['마감일',t.end],['D-Day','D-2']]
+        });
+      }
+    }
+  });
+  return list;
+}
+
+function syncAlarmsToSW(){
+  if(!navigator.serviceWorker || !navigator.serviceWorker.controller) return;
+  const list = buildAlarmList();
+  navigator.serviceWorker.controller.postMessage({
+    type: 'SYNC_ALARMS',
+    payload: { alarms: list }
+  });
+}
+
+// ═══════════════════════════════════════
+//  앱 내 알람 (앱이 열려있을 때)
+// ═══════════════════════════════════════
+function scheduleInAppAlarms(task){
+  const now = Date.now();
+
+  if(task.type === 'meeting' && task.time && task.start){
+    const meetMs = new Date(task.start+'T'+task.time).getTime();
+    const ms2h   = meetMs - 2*3600000 - now;
+    const ms0    = meetMs - now;
+    if(ms2h > 0) setTimeout(() => pushAlarm({
+      id:task.id+'-meet2h', type:'type-meet2h', icon:'⏰',
+      kind:'회의 2시간 전 알림', taskTitle:task.title,
+      sub:'오늘 '+task.time+' 에 회의가 있습니다',
+      meta:[['날짜',task.start],['시간',task.time],['남은시간','약 2시간']]
+    }), ms2h);
+    if(ms0 > 0) setTimeout(() => pushAlarm({
+      id:task.id+'-meet0', type:'type-meet0', icon:'🚀',
+      kind:'회의 시작!', taskTitle:task.title,
+      sub:'지금 회의가 시작됩니다',
+      meta:[['날짜',task.start],['시간',task.time]]
+    }), ms0);
   } else {
-    // 폴백: 기본 Notification API
-    new Notification(alarm.kind + ' — ' + alarm.taskTitle, {
-      body: alarm.sub || '',
-      tag: 'alarm-' + Date.now(),
-      requireInteraction: true,
-    });
+    const startMs = new Date(task.start+'T09:00:00').getTime() - now;
+    if(startMs > 0) setTimeout(() => pushAlarm({
+      id:task.id+'-start', type:'type-start', icon:'📌',
+      kind:'업무 시작일 알림', taskTitle:task.title,
+      sub:'오늘 시작하는 업무입니다',
+      meta:[['시작일',task.start],['마감일',task.end||task.start]]
+    }), startMs);
+    if(task.end){
+      const warnMs = new Date(addDays(task.end,-2)+'T09:00:00').getTime() - now;
+      if(warnMs > 0) setTimeout(() => pushAlarm({
+        id:task.id+'-warn', type:'type-warn', icon:'⚠️',
+        kind:'마감 2일 전 경고', taskTitle:task.title,
+        sub:'마감일('+task.end+')까지 2일 남았습니다',
+        meta:[['마감일',task.end],['D-Day','D-2']]
+      }), warnMs);
+    }
   }
 }
 
-// ═══════════════════════════════════════════
-//  MONTH NAV
-// ═══════════════════════════════════════════
-function changeMonth(d){
-  curMonth+=d;
-  if(curMonth>11){curMonth=0;curYear++;}
-  if(curMonth<0){curMonth=11;curYear--;}
-  renderCalendar();
+// 앱 로드 시 오늘 알람 즉시 체크
+function checkTodayAlarms(){
+  const nowH = today.getHours();
+  const nowM = today.getMinutes();
+  const pending = [];
+
+  tasks.filter(t => !t.done).forEach(t => {
+    if(t.type === 'meeting' && t.start === todayStr && t.time){
+      const [hh,mm] = t.time.split(':').map(Number);
+      const diffMin = (hh*60+mm) - (nowH*60+nowM);
+      if(diffMin <= 120 && diffMin > 0) pending.push({
+        id:t.id+'-meet2h', type:'type-meet2h', icon:'⏰',
+        kind:'오늘 회의 — 2시간 이내', taskTitle:t.title,
+        sub:'오늘 '+t.time+' 예정',
+        meta:[['날짜',t.start],['시간',t.time]]
+      });
+      if(diffMin <= 0 && diffMin > -60) pending.push({
+        id:t.id+'-meet0', type:'type-meet0', icon:'🚀',
+        kind:'회의 시작!', taskTitle:t.title,
+        sub:'지금 회의가 시작됩니다',
+        meta:[['날짜',t.start],['시간',t.time]]
+      });
+    } else if(t.type !== 'meeting'){
+      if(t.start === todayStr) pending.push({
+        id:t.id+'-start', type:'type-start', icon:'📌',
+        kind:'업무 시작일 알림', taskTitle:t.title,
+        sub:'오늘 시작하는 업무입니다',
+        meta:[['시작일',t.start],['마감일',t.end||t.start]]
+      });
+      if(t.end && addDays(t.end,-2) === todayStr) pending.push({
+        id:t.id+'-warn', type:'type-warn', icon:'⚠️',
+        kind:'마감 2일 전 경고', taskTitle:t.title,
+        sub:'마감일('+t.end+')까지 2일 남았습니다',
+        meta:[['마감일',t.end],['D-Day','D-2']]
+      });
+    }
+  });
+
+  pending.forEach((a,i) => setTimeout(() => pushAlarm(a), 1000 + i*300));
 }
-function goToday(){ curYear=today.getFullYear(); curMonth=today.getMonth(); renderCalendar(); }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
+//  ALARM POPUP (앱 내)
+// ═══════════════════════════════════════
+function pushAlarm(cfg){
+  // 중복 방지
+  if(alarmQueue.find(a => a.id === cfg.id)) return;
+  alarmQueue.push(cfg);
+  if(!alarmActive) showNextAlarm();
+}
+
+function showNextAlarm(){
+  if(alarmQueue.length === 0){ alarmActive = false; return; }
+  alarmActive = true;
+  const cfg = alarmQueue[0];
+
+  document.getElementById('alarmHeader').className = 'alarm-header '+cfg.type;
+  document.getElementById('alarmIcon').textContent  = cfg.icon;
+  document.getElementById('alarmKind').textContent  = cfg.kind;
+  document.getElementById('alarmTitle').textContent = cfg.taskTitle;
+  document.getElementById('alarmSub').textContent   = cfg.sub || '';
+
+  const meta = document.getElementById('alarmMeta');
+  meta.innerHTML = '';
+  (cfg.meta||[]).forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'alarm-meta-row';
+    d.innerHTML = '<span>'+r[0]+'</span><span>'+r[1]+'</span>';
+    meta.appendChild(d);
+  });
+
+  document.getElementById('alarmQueueInfo').textContent =
+    alarmQueue.length > 1 ? '대기 중인 알람 '+(alarmQueue.length-1)+'개' : '';
+
+  document.getElementById('alarmOverlay').classList.add('open');
+  playBeep(cfg.type);
+  if(navigator.vibrate) navigator.vibrate([200,100,200,100,200]);
+}
+
+function confirmAlarm(){
+  const confirmed = alarmQueue.shift();
+  // SW에도 삭제 알림
+  if(confirmed && navigator.serviceWorker && navigator.serviceWorker.controller){
+    navigator.serviceWorker.controller.postMessage({
+      type: 'CLEAR_ALARM', payload: { id: confirmed.id }
+    });
+  }
+  document.getElementById('alarmOverlay').classList.remove('open');
+  setTimeout(showNextAlarm, 350);
+}
+
+function playBeep(type){
+  try{
+    const ctx = new(window.AudioContext||window.webkitAudioContext)();
+    const seqs = {
+      'type-start':  [[520,.12],[640,.18]],
+      'type-warn':   [[880,.09],[0,.05],[880,.09],[0,.05],[880,.2]],
+      'type-meet2h': [[440,.14],[550,.18]],
+      'type-meet0':  [[600,.09],[750,.09],[900,.22]]
+    };
+    let t = ctx.currentTime + .05;
+    (seqs[type]||seqs['type-start']).forEach(s => {
+      if(s[0]===0){t+=s[1];return;}
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = s[0]; osc.type = 'sine';
+      gain.gain.setValueAtTime(.32,t);
+      gain.gain.exponentialRampToValueAtTime(.001,t+s[1]);
+      osc.start(t); osc.stop(t+s[1]+.02);
+      t += s[1]+.02;
+    });
+  }catch(e){}
+}
+
+// ═══════════════════════════════════════
+//  MONTH NAV
+// ═══════════════════════════════════════
+function changeMonth(d){ curMonth+=d; if(curMonth>11){curMonth=0;curYear++;}if(curMonth<0){curMonth=11;curYear--;}renderCalendar(); }
+function goToday(){ curYear=today.getFullYear();curMonth=today.getMonth();renderCalendar(); }
+
+// ═══════════════════════════════════════
 //  RENDER
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 function renderCalendar(){
-  document.getElementById('monthLabel').textContent=
-    curYear+'년 '+String(curMonth+1).padStart(2,'0')+'월';
-
-  const grid=document.getElementById('calGrid');
-  grid.innerHTML='';
-
-  const firstDay=new Date(curYear,curMonth,1).getDay();
-  const daysInMonth=new Date(curYear,curMonth+1,0).getDate();
-  const daysInPrev=new Date(curYear,curMonth,0).getDate();
-  const totalCells=Math.ceil((firstDay+daysInMonth)/7)*7;
+  document.getElementById('monthLabel').textContent = curYear+'년 '+pad(curMonth+1)+'월';
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+  const firstDay    = new Date(curYear,curMonth,1).getDay();
+  const daysInMonth = new Date(curYear,curMonth+1,0).getDate();
+  const daysInPrev  = new Date(curYear,curMonth,0).getDate();
+  const totalCells  = Math.ceil((firstDay+daysInMonth)/7)*7;
 
   for(let i=0;i<totalCells;i++){
     let d,m,y,isOther=false;
-    if(i<firstDay){
-      d=daysInPrev-firstDay+i+1; m=curMonth-1; y=curYear; isOther=true;
-      if(m<0){m=11;y--;}
-    } else if(i>=firstDay+daysInMonth){
-      d=i-firstDay-daysInMonth+1; m=curMonth+1; y=curYear; isOther=true;
-      if(m>11){m=0;y++;}
-    } else {
-      d=i-firstDay+1; m=curMonth; y=curYear;
-    }
-    const ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    if(i<firstDay){ d=daysInPrev-firstDay+i+1;m=curMonth-1;y=curYear;isOther=true;if(m<0){m=11;y--;} }
+    else if(i>=firstDay+daysInMonth){ d=i-firstDay-daysInMonth+1;m=curMonth+1;y=curYear;isOther=true;if(m>11){m=0;y++;} }
+    else{ d=i-firstDay+1;m=curMonth;y=curYear; }
+    const ds=y+'-'+pad(m+1)+'-'+pad(d);
     const isToday=ds===todayStr;
     const dow=i%7;
 
     const cell=document.createElement('div');
     cell.className='cal-cell'+(isOther?' other-month':'')+(isToday?' today':'')+(dow===0?' sun':'')+(dow===6?' sat':'');
-
     const dn=document.createElement('div');
     dn.className='day-num'; dn.textContent=d;
     cell.appendChild(dn);
 
     const dayTasks=getTasksForDate(ds);
-    const MAX=3;
-    dayTasks.slice(0,MAX).forEach(t=>cell.appendChild(makeBar(t,ds)));
-    if(dayTasks.length>MAX){
-      const mb=document.createElement('div');
-      mb.className='more-badge';
-      mb.textContent='+'+(dayTasks.length-MAX)+'개';
-      cell.appendChild(mb);
-    }
-    if(hasAlarm(ds)){
-      const ab=document.createElement('div');
-      ab.className='alarm-badge'; ab.textContent='!';
-      cell.appendChild(ab);
-    }
+    dayTasks.slice(0,3).forEach(t=>cell.appendChild(makeBar(t,ds)));
+    if(dayTasks.length>3){ const mb=document.createElement('div');mb.className='more-badge';mb.textContent='+'+(dayTasks.length-3)+'개';cell.appendChild(mb); }
+    if(hasAlarm(ds)){ const ab=document.createElement('div');ab.className='alarm-badge';ab.textContent='!';cell.appendChild(ab); }
     grid.appendChild(cell);
   }
   updateUrgentCount();
@@ -571,12 +672,8 @@ function renderCalendar(){
 function getTasksForDate(ds){
   const res=[];
   tasks.forEach(t=>{
-    if(t.type==='meeting'){
-      if(t.start===ds) res.push({...t,_role:'meeting'});
-    } else {
-      const s=t.start, e=t.end||t.start;
-      if(ds>=s&&ds<=e) res.push({...t,_role:ds===e?'deadline':'task'});
-    }
+    if(t.type==='meeting'){ if(t.start===ds) res.push({...t,_role:'meeting'}); }
+    else{ const s=t.start,e=t.end||t.start; if(ds>=s&&ds<=e) res.push({...t,_role:ds===e?'deadline':'task'}); }
   });
   return res;
 }
@@ -589,15 +686,12 @@ function makeBar(t,ds){
   else if(t._role==='deadline') cls+='cat-dead';
   else cls+='cat-task';
   bar.className=cls;
-
   const icon=t.done?'✓':t._role==='meeting'?'💬':t._role==='deadline'?'⚠':'📌';
-  if(!t.done&&isAlarmDate(t,ds)){
-    const dot=document.createElement('div'); dot.className='tb-dot'; bar.appendChild(dot);
-  }
-  const ic=document.createElement('span'); ic.className='tb-icon'; ic.textContent=icon;
-  const lb=document.createElement('span'); lb.className='tb-label';
+  if(!t.done&&isAlarmDate(t,ds)){ const dot=document.createElement('div');dot.className='tb-dot';bar.appendChild(dot); }
+  const ic=document.createElement('span');ic.className='tb-icon';ic.textContent=icon;
+  const lb=document.createElement('span');lb.className='tb-label';
   lb.textContent=(t.type==='meeting'&&t.time)?t.time+' '+t.title:t.title;
-  bar.appendChild(ic); bar.appendChild(lb);
+  bar.appendChild(ic);bar.appendChild(lb);
   bar.onclick=e=>{e.stopPropagation();showDetail(t.id,e);};
   return bar;
 }
@@ -610,34 +704,28 @@ function isAlarmDate(t,ds){
 }
 function hasAlarm(ds){ return tasks.some(t=>!t.done&&isAlarmDate(t,ds)); }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 //  DETAIL POPUP
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 function showDetail(id,e){
-  const t=tasks.find(x=>x.id===id); if(!t) return;
+  const t=tasks.find(x=>x.id===id);if(!t)return;
   detailTaskId=id;
-
   document.getElementById('dp-title').textContent=t.title;
   document.getElementById('dp-type').textContent=t.type==='meeting'?'💬 회의':'📌 업무';
   document.getElementById('dp-start').textContent=t.start;
-
-  // 마감일 row: 업무만 표시
   document.getElementById('dp-end-row').style.display=t.type==='task'?'flex':'none';
   document.getElementById('dp-end').textContent=t.end||'-';
   document.getElementById('dp-days-row').style.display=(t.type==='task'&&t.days)?'flex':'none';
   document.getElementById('dp-days').textContent=t.days?t.days+'일':'-';
-
   document.getElementById('dp-time-row').style.display=t.type==='meeting'?'flex':'none';
   document.getElementById('dp-time').textContent=t.time||'-';
   document.getElementById('dp-memo-row').style.display=t.memo?'flex':'none';
   document.getElementById('dp-memo').textContent=t.memo||'';
-
   document.getElementById('da-edit-btn').style.display=t.done?'none':'';
   document.getElementById('da-done-btn').style.display=t.done?'none':'';
 
   const popup=document.getElementById('detailPopup');
   popup.classList.add('show');
-
   const rect=e.target.getBoundingClientRect();
   const pw=270,ph=240;
   let left=rect.left+window.scrollX;
@@ -645,38 +733,35 @@ function showDetail(id,e){
   if(left+pw>window.innerWidth-8) left=window.innerWidth-pw-8;
   if(top+ph>window.innerHeight+window.scrollY-8) top=rect.top+window.scrollY-ph-6;
   if(left<6) left=6;
-  popup.style.left=left+'px'; popup.style.top=top+'px';
+  popup.style.left=left+'px';popup.style.top=top+'px';
 }
-
 function closeDetail(){ document.getElementById('detailPopup').classList.remove('show'); }
 document.addEventListener('click',e=>{
   const p=document.getElementById('detailPopup');
   if(!p.contains(e.target)&&!e.target.closest('.task-bar')) p.classList.remove('show');
 });
-
 function markDone(){
-  if(!detailTaskId) return;
+  if(!detailTaskId)return;
   tasks=tasks.map(t=>t.id===detailTaskId?{...t,done:true}:t);
-  saveTasks(); renderCalendar(); closeDetail();
+  saveTasks();renderCalendar();closeDetail();syncAlarmsToSW();
   showToast('완료 처리','업무가 완료되었습니다.','✅');
 }
 function deleteTask(){
-  if(!detailTaskId) return;
+  if(!detailTaskId)return;
   const t=tasks.find(x=>x.id===detailTaskId);
-  if(!confirm('"'+t?.title+'" 을(를) 삭제하시겠습니까?')) return;
+  if(!confirm('"'+t?.title+'" 을(를) 삭제하시겠습니까?'))return;
   tasks=tasks.filter(t=>t.id!==detailTaskId);
-  saveTasks(); renderCalendar(); closeDetail();
+  saveTasks();renderCalendar();closeDetail();syncAlarmsToSW();
   showToast('삭제됨','업무가 삭제되었습니다.','🗑️');
 }
 function editTask(){
-  if(!detailTaskId) return;
-  const t=tasks.find(x=>x.id===detailTaskId); if(!t) return;
+  if(!detailTaskId)return;
+  const t=tasks.find(x=>x.id===detailTaskId);if(!t)return;
   closeDetail();
   editingId=t.id;
   document.getElementById('modalTitleText').textContent='✏️ 업무 수정';
   document.getElementById('f-title').value=t.title;
   document.getElementById('f-memo').value=t.memo||'';
-
   if(t.type==='meeting'){
     document.getElementById('f-meet-date').value=t.start;
     document.getElementById('f-time').value=t.time||'';
@@ -694,49 +779,36 @@ function editTask(){
   document.getElementById('modalOverlay').classList.add('open');
 }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 //  MODAL
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 function setType(t){
   currentType=t;
   document.querySelectorAll('.type-btn').forEach(b=>b.classList.toggle('active',b.dataset.t===t));
-  const box=document.getElementById('modalBox');
-  if(t==='meeting'){
-    box.classList.add('showing-meeting');
-  } else {
-    box.classList.remove('showing-meeting');
-  }
+  document.getElementById('modalBox').classList.toggle('showing-meeting',t==='meeting');
 }
-
 function openModal(){
   editingId=null;
   document.getElementById('modalTitleText').textContent='업무 등록';
-  document.getElementById('f-title').value='';
-  document.getElementById('f-start').value='';
-  document.getElementById('f-end').value='';
+  ['f-title','f-start','f-end','f-meet-date','f-time','f-memo'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-days').value='';
-  document.getElementById('f-meet-date').value='';
-  document.getElementById('f-time').value='';
-  document.getElementById('f-memo').value='';
   setType('task');
   document.getElementById('modalOverlay').classList.add('open');
 }
 function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
-function closeModalOutside(e){ if(e.target.id==='modalOverlay') closeModal(); }
+function closeModalOutside(e){ if(e.target.id==='modalOverlay')closeModal(); }
 
 function saveTask(){
   const title=document.getElementById('f-title').value.trim();
   if(!title){alert('업무명을 입력하세요.');return;}
-
-  let start, end, days, time;
+  let start,end,days,time;
   const memo=document.getElementById('f-memo').value.trim();
-
   if(currentType==='meeting'){
     start=document.getElementById('f-meet-date').value;
     if(!start){alert('회의 날짜를 선택하세요.');return;}
     time=document.getElementById('f-time').value;
     if(!time){alert('회의 시간을 입력하세요.');return;}
-    end=start; days=null;
+    end=start;days=null;
   } else {
     start=document.getElementById('f-start').value;
     if(!start){alert('시작일을 선택하세요.');return;}
@@ -744,204 +816,36 @@ function saveTask(){
     days=parseInt(document.getElementById('f-days').value)||null;
     time='';
   }
-
   const orig=editingId?tasks.find(t=>t.id===editingId):null;
   const task={
-    id:editingId||Date.now(),
-    type:currentType, title, start, end, days, time, memo,
+    id:editingId||Date.now(), type:currentType, title, start, end, days, time, memo,
     done:orig?orig.done:false,
     created:orig?orig.created:new Date().toISOString()
   };
-
   if(editingId) tasks=tasks.map(t=>t.id===editingId?task:t);
   else          tasks.push(task);
-
-  saveTasks(); renderCalendar(); closeModal();
+  saveTasks();renderCalendar();closeModal();
   showToast(editingId?'수정 완료':'등록 완료','"'+title+'" '+(editingId?'수정':'등록')+'되었습니다.','📌');
-  scheduleAlarms(task);
+  scheduleInAppAlarms(task);
+  syncAlarmsToSW(); // SW에 즉시 반영
 }
 
-// ═══════════════════════════════════════════
-//  ALARM POPUP (앱 내)
-// ═══════════════════════════════════════════
-function pushAlarm(cfg){
-  alarmQueue.push(cfg);
-  if(!alarmActive) showNextAlarm();
-}
-
-function showNextAlarm(){
-  if(alarmQueue.length===0){alarmActive=false;return;}
-  alarmActive=true;
-  const cfg=alarmQueue[0];
-
-  document.getElementById('alarmHeader').className='alarm-header '+cfg.type;
-  document.getElementById('alarmIcon').textContent=cfg.icon;
-  document.getElementById('alarmKind').textContent=cfg.kind;
-  document.getElementById('alarmTitle').textContent=cfg.taskTitle;
-  document.getElementById('alarmSub').textContent=cfg.sub||'';
-
-  const meta=document.getElementById('alarmMeta');
-  meta.innerHTML='';
-  (cfg.meta||[]).forEach(function(row){
-    const div=document.createElement('div');
-    div.className='alarm-meta-row';
-    div.innerHTML='<span>'+row[0]+'</span><span>'+row[1]+'</span>';
-    meta.appendChild(div);
-  });
-
-  document.getElementById('alarmQueueInfo').textContent=
-    alarmQueue.length>1?'대기 중인 알람 '+(alarmQueue.length-1)+'개':'';
-
-  document.getElementById('alarmOverlay').classList.add('open');
-  playBeep(cfg.type);
-  if(navigator.vibrate) navigator.vibrate([200,100,200,100,200]);
-}
-
-function confirmAlarm(){
-  alarmQueue.shift();
-  document.getElementById('alarmOverlay').classList.remove('open');
-  setTimeout(showNextAlarm,350);
-}
-
-function playBeep(type){
-  try{
-    const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const seqs={
-      'type-start':  [[520,.12],[640,.18]],
-      'type-warn':   [[880,.09],[0,.05],[880,.09],[0,.05],[880,.2]],
-      'type-meet2h': [[440,.14],[550,.18]],
-      'type-meet0':  [[600,.09],[750,.09],[900,.22]]
-    };
-    const seq=seqs[type]||seqs['type-start'];
-    let t=ctx.currentTime+.05;
-    seq.forEach(function(s){
-      if(s[0]===0){t+=s[1];return;}
-      const osc=ctx.createOscillator();
-      const gain=ctx.createGain();
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.frequency.value=s[0]; osc.type='sine';
-      gain.gain.setValueAtTime(.32,t);
-      gain.gain.exponentialRampToValueAtTime(.001,t+s[1]);
-      osc.start(t); osc.stop(t+s[1]+.02);
-      t+=s[1]+.02;
-    });
-  }catch(e){}
-}
-
-// ═══════════════════════════════════════════
-//  ALARM SCHEDULING
-// ═══════════════════════════════════════════
-function buildAlarmCfg(type, task, overrides){
-  const base={
-    'type-start':  {icon:'📌', kind:'업무 시작일 알림',  sub:'오늘 시작하는 업무입니다'},
-    'type-warn':   {icon:'⚠️', kind:'마감 2일 전 경고',   sub:'마감일('+task.end+')까지 2일 남았습니다'},
-    'type-meet2h': {icon:'⏰', kind:'회의 2시간 전 알림', sub:'오늘 '+task.time+' 에 회의가 있습니다'},
-    'type-meet0':  {icon:'🚀', kind:'회의 시작!',          sub:'지금 회의가 시작됩니다'},
-  }[type];
-  return Object.assign({type, taskId:task.id, taskTitle:task.title}, base, overrides||{});
-}
-
-function fireAlarm(cfg){
-  // 앱 내 팝업
-  pushAlarm(cfg);
-  // 백그라운드 네이티브 알림
-  sendNativeNotif(cfg);
-}
-
-function scheduleAlarms(task){
-  const now=new Date();
-
-  if(task.type==='meeting'&&task.time&&task.start){
-    const meetDt=new Date(task.start+'T'+task.time);
-    const ms2h=meetDt.getTime()-2*3600000-now.getTime();
-    const ms0=meetDt.getTime()-now.getTime();
-
-    if(ms2h>0) setTimeout(function(){
-      fireAlarm(buildAlarmCfg('type-meet2h',task,{
-        meta:[['날짜',task.start],['시간',task.time],['남은시간','약 2시간']]
-      }));
-    },ms2h);
-
-    if(ms0>0) setTimeout(function(){
-      fireAlarm(buildAlarmCfg('type-meet0',task,{
-        meta:[['날짜',task.start],['시간',task.time]]
-      }));
-    },ms0);
-
-  } else {
-    if(task.start){
-      const st=new Date(task.start+'T09:00:00').getTime()-now.getTime();
-      if(st>0) setTimeout(function(){
-        fireAlarm(buildAlarmCfg('type-start',task,{
-          meta:[['시작일',task.start],['마감일',task.end||task.start],['소요일',task.days?task.days+'일':'-']]
-        }));
-      },st);
-    }
-    if(task.end){
-      const d2=new Date(addDays(task.end,-2)+'T09:00:00').getTime()-now.getTime();
-      if(d2>0) setTimeout(function(){
-        fireAlarm(buildAlarmCfg('type-warn',task,{
-          meta:[['마감일',task.end],['D-Day','D-2'],['소요일',task.days?task.days+'일':'-']]
-        }));
-      },d2);
-    }
-  }
-}
-
-// 앱 로드 시 오늘 해당 알람 즉시 확인
-function checkTodayAlarms(){
-  const nowH=today.getHours();
-  const pending=[];
-
-  tasks.filter(t=>!t.done).forEach(t=>{
-    if(t.type==='meeting'&&t.start===todayStr&&t.time){
-      const hh=parseInt(t.time.split(':')[0]);
-      const diff=hh-nowH;
-      if(diff<=2&&diff>0) pending.push(buildAlarmCfg('type-meet2h',t,{
-        meta:[['날짜',t.start],['시간',t.time]]
-      }));
-      if(diff<=0&&diff>-1) pending.push(buildAlarmCfg('type-meet0',t,{
-        meta:[['날짜',t.start],['시간',t.time]]
-      }));
-    } else if(t.type!=='meeting'){
-      if(t.start===todayStr) pending.push(buildAlarmCfg('type-start',t,{
-        meta:[['시작일',t.start],['마감일',t.end||t.start]]
-      }));
-      if(addDays(t.end||t.start,-2)===todayStr) pending.push(buildAlarmCfg('type-warn',t,{
-        meta:[['마감일',t.end||t.start],['D-Day','D-2']]
-      }));
-    }
-  });
-
-  pending.forEach(function(a,i){
-    setTimeout(function(){ fireAlarm(a); }, 900+i*300);
-  });
-}
-
-// ═══════════════════════════════════════════
-//  URGENT PANEL (회의 제외 — 업무만)
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
+//  URGENT PANEL (업무만, 회의 제외)
+// ═══════════════════════════════════════
 function getUrgentItems(){
   const items=[];
-  // 업무(task)만, 회의(meeting) 제외
-  tasks.filter(t=>!t.done && t.type!=='meeting').forEach(t=>{
+  tasks.filter(t=>!t.done&&t.type!=='meeting').forEach(t=>{
     const end=t.end||t.start;
     const dEnd=diffDays(todayStr,end);
     const dStart=diffDays(todayStr,t.start);
-
-    if(t.start===todayStr){
-      items.push({task:t,urgency:-1,label:'시작일',cls:'uc-start',reason:'오늘 시작',date:t.start});
-    } else if(dEnd===0){
-      items.push({task:t,urgency:0,label:'D-0',cls:'uc-d0',reason:'오늘 마감',date:end});
-    } else if(dEnd===1){
-      items.push({task:t,urgency:1,label:'D-1',cls:'uc-d1',reason:'내일 마감',date:end});
-    } else if(dEnd===2){
-      items.push({task:t,urgency:2,label:'D-2',cls:'uc-d2',reason:'마감 2일 전',date:end});
-    } else if(dStart>0&&dStart<=7){
-      items.push({task:t,urgency:dStart+10,label:'D-'+dStart,cls:'uc-start',reason:'시작 예정',date:t.start});
-    }
+    if(t.start===todayStr) items.push({task:t,urgency:-1,label:'시작일',cls:'uc-start',reason:'오늘 시작',date:t.start});
+    else if(dEnd===0)  items.push({task:t,urgency:0,label:'D-0',cls:'uc-d0',reason:'오늘 마감',date:end});
+    else if(dEnd===1)  items.push({task:t,urgency:1,label:'D-1',cls:'uc-d1',reason:'내일 마감',date:end});
+    else if(dEnd===2)  items.push({task:t,urgency:2,label:'D-2',cls:'uc-d2',reason:'마감 2일 전',date:end});
+    else if(dStart>0&&dStart<=7) items.push({task:t,urgency:dStart+10,label:'D-'+dStart,cls:'uc-start',reason:'시작 예정',date:t.start});
   });
-  items.sort(function(a,b){return a.urgency-b.urgency;});
+  items.sort((a,b)=>a.urgency-b.urgency);
   return items;
 }
 
@@ -956,35 +860,21 @@ function openUrgent(){
   const items=getUrgentItems();
   const body=document.getElementById('urgentBody');
   body.innerHTML='';
-
-  if(items.length===0){
+  if(!items.length){
     body.innerHTML='<div class="up-empty"><div class="ue-icon">🎉</div><p>긴급한 업무가 없습니다!<br>모든 업무가 여유롭습니다.</p></div>';
   } else {
     const groups=[
-      {label:'🔴 즉시 처리', filter:i=>i.urgency<0||i.cls==='uc-d0'},
-      {label:'🟡 임박한 마감',filter:i=>i.cls==='uc-d1'||i.cls==='uc-d2'},
-      {label:'🔵 시작 예정', filter:i=>i.cls==='uc-start'&&i.urgency>2},
+      {label:'🔴 즉시 처리', f:i=>i.urgency<0||i.cls==='uc-d0'},
+      {label:'🟡 임박한 마감',f:i=>i.cls==='uc-d1'||i.cls==='uc-d2'},
+      {label:'🔵 시작 예정', f:i=>i.cls==='uc-start'&&i.urgency>2},
     ];
-    groups.forEach(function(g){
-      const grp=items.filter(g.filter);
-      if(!grp.length) return;
-      const sl=document.createElement('div');
-      sl.className='up-section-label'; sl.textContent=g.label;
-      body.appendChild(sl);
-      grp.forEach(function(item){
-        const card=document.createElement('div');
-        card.className='urgent-card '+item.cls;
-        card.innerHTML=
-          '<div class="uc-top">'+
-            '<div class="uc-name">📌 '+item.task.title+'</div>'+
-            '<div class="uc-dday">'+item.label+'</div>'+
-          '</div>'+
-          '<div class="uc-meta">'+item.reason+' · '+item.date+'</div>';
-        card.onclick=function(){
-          closeUrgent();
-          const d=new Date(item.date);
-          curYear=d.getFullYear(); curMonth=d.getMonth(); renderCalendar();
-        };
+    groups.forEach(g=>{
+      const grp=items.filter(g.f);if(!grp.length)return;
+      const sl=document.createElement('div');sl.className='up-section-label';sl.textContent=g.label;body.appendChild(sl);
+      grp.forEach(item=>{
+        const card=document.createElement('div');card.className='urgent-card '+item.cls;
+        card.innerHTML='<div class="uc-top"><div class="uc-name">📌 '+item.task.title+'</div><div class="uc-dday">'+item.label+'</div></div><div class="uc-meta">'+item.reason+' · '+item.date+'</div>';
+        card.onclick=()=>{closeUrgent();const d=new Date(item.date);curYear=d.getFullYear();curMonth=d.getMonth();renderCalendar();};
         body.appendChild(card);
       });
     });
@@ -992,11 +882,11 @@ function openUrgent(){
   document.getElementById('urgentOverlay').classList.add('open');
 }
 function closeUrgent(){ document.getElementById('urgentOverlay').classList.remove('open'); }
-function closeUrgentOutside(e){ if(e.target.id==='urgentOverlay') closeUrgent(); }
+function closeUrgentOutside(e){ if(e.target.id==='urgentOverlay')closeUrgent(); }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 //  TOAST
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 function showToast(title,msg,icon){
   icon=icon||'🔔';
   const c=document.getElementById('toastContainer');
@@ -1004,20 +894,21 @@ function showToast(title,msg,icon){
   el.className='toast';
   el.innerHTML='<div class="toast-icon">'+icon+'</div><div class="toast-body"><div class="toast-title">'+title+'</div><div class="toast-msg">'+msg+'</div></div>';
   c.appendChild(el);
-  setTimeout(function(){
-    el.style.animation='tOut .3s ease forwards';
-    setTimeout(function(){el.remove();},300);
-  },3500);
+  setTimeout(()=>{el.style.animation='tOut .3s ease forwards';setTimeout(()=>el.remove(),300);},3500);
 }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 //  INIT
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 (function init(){
   renderCalendar();
-  initServiceWorker();
+  initSW().then(() => {
+    // SW 준비 후 동기화 (약간 delay — controller 연결 대기)
+    setTimeout(syncAlarmsToSW, 1500);
+  });
   setTimeout(checkTodayAlarms, 1000);
-  tasks.filter(t=>!t.done).forEach(scheduleAlarms);
+  // 앱 내 setTimeout 알람도 동시 등록
+  tasks.filter(t=>!t.done).forEach(scheduleInAppAlarms);
 })();
 </script>
 </body>
